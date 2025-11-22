@@ -62,5 +62,6 @@ financial-fraud-agentic-system/
 │   └── .env.template
 │
 ├── README.md
+├── .gitignore
 └── requirements.txt
 

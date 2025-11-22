@@ -1,106 +1,168 @@
-# 📦 Financial Fraud Agentic System
+# 🚀 Financial Fraud Agentic System
 
-End-to-end data engineering pipeline for ingesting raw CSV data into Snowflake using **stages**, **Snowpark**, and a **Bronze layer**.
-This repository currently implements the **Bronze Ingestion Layer** with automatic schema detection and table creation.
-
----
-
-## 🚀 **Project Overview**
-
-This project aims to build a modular, scalable data pipeline for financial-fraud analytics and AI agentic workflows.
-
-### **Current Milestone Completed**
-
-✔ Snowflake project setup
-✔ Local `.env` integration
-✔ Internal stage creation
-✔ CSV upload to Snowflake stage
-✔ Automatic schema inference from CSV
-✔ Automatic Bronze table creation
-✔ Data loading into Bronze tables
-✔ Modular folder structure
+A full-stack **agentic, multi-service** pipeline for Fraud Detection, AML/KYC Compliance, Transaction Risk Scoring, and automated ML.
+This system integrates **Snowflake**, **Python**, **Streamlit**, **FastAPI**, **Agents**, **ML**, and **Docker** into one production-ready architecture.
 
 ---
 
-# 📁 **Folder Structure (Current Version)**
+# 📁 Project Structure
 
 ```
 financial-fraud-agentic-system/
 │
-├── config/
-│   └── config.py                # Loads Snowflake credentials from .env
+├── data/                       # Raw CSV datasets
+│   ├── customers.csv
+│   ├── accounts.csv
+│   ├── merchant_info.csv
+│   ├── transactions.csv
+│   ├── fraud_labels.csv
+│   └── alerts_history.csv
 │
-├── ingestion/
-│   └── ingest_csv_to_bronze.py  # Full working ingestion script
+├── src/
+│   │   ├── ingest_csv_to_bronze.py
+│   │   ├── silver_transformations.sql
+│   │   └── gold_feature_engineering.sql
+│       └── snowflake_connection.py
 │
-├── data/
-│   └── raw/                     # Local CSV files before ingestion
+├── stages/
+│   └── readme.md               # Documentation of Snowflake stages
 │
-├── .env                         # Snowflake credentials (not committed)
-├── .gitignore                   # Python + env + cache ignores
-├── README.md                    # Project documentation
-└── requirements.txt             # Dependencies
+├── agents/                     # AI Agents (future modules)
+│   ├── profiler_agent.py
+│   ├── automl_agent.py
+│   ├── fraud_agent.py
+│   ├── risk_agent.py
+│   └── aml_agent.py
+│
+├── ml/
+│   ├── train_model.py
+│   ├── feature_store.py
+│   └── model_registry/
+│
+├── api/
+│   ├── fastapi_app.py
+│   └── endpoints/
+│
+├── streamlit/
+│   ├── dashboard.py
+│   └── insights/
+│
+├── docker/
+│   ├── Dockerfile.api
+│   ├── Dockerfile.streamlit
+│   └── docker-compose.yml
+│
+├── configs/
+│   └── .env.template           # Template for environment variables
+│
+├── README.md
+├── .gitignore
+└── requirements.txt
 ```
 
 ---
 
-# 🔧 **Bronze Ingestion Script**
+# 🎯 Project Goals
 
-### **Script:**
+This system enables:
 
-`ingestion/ingest_csv_to_bronze.py`
+### ✅ Automated ingestion → transformation → feature engineering → ML → agents
 
-### **What it does:**
+### ✅ Real-time fraud detection
 
-1. Reads Snowflake credentials from `.env`
-2. Connects to Snowflake using **SnowparkSession**
-3. Uploads CSV to stage (e.g., `@raw_stage`)
-4. Infers schema from CSV header
-5. Creates Bronze table automatically (if not exists)
-6. Loads data into:
+### ✅ AML/KYC compliance checks
 
-```
-bronze.<auto_table_name_from_csv>
-```
+### ✅ Risk scoring + alert explanations
 
-### **Command to Run**
+### ✅ Streamlit insights + API services
 
-From project root (`financial-fraud-agentic-system/`):
-
-```
-python ingestion/ingest_csv_to_bronze.py
-```
+### ✅ Docker microservices for deployment
 
 ---
 
-# 🔐 Environment Variables
+# 🏗 Current Progress (Completed)
 
-Create a file named **.env** in the root:
+### ✔ **1. Data Preparation**
 
-```
-SNOWFLAKE_USER=your_user
-SNOWFLAKE_PASSWORD=your_password
-SNOWFLAKE_ACCOUNT=your_account
-SNOWFLAKE_ROLE=your_role
-SNOWFLAKE_WAREHOUSE=your_wh
-SNOWFLAKE_DATABASE=your_db
-SNOWFLAKE_SCHEMA=bronze
-SNOWFLAKE_STAGE=raw_stage
-```
+* All raw datasets ready in `/data`.
 
-> `.env` is already ignored by `.gitignore`.
+### ✔ **2. Snowflake Connectivity**
+
+`src/utils/snowflake_connection.py` manages:
+
+* Session creation
+* Automatic environment loading
+* Safe connection handling
+
+### ✔ **3. Bronze Ingestion Layer**
+
+`src/ingest/ingest_csv_to_bronze.py` supports:
+
+* Upload CSV → Snowflake Stage
+* Auto schema detection
+* Auto Bronze table creation
+* Load data into `BRONZE` schema
 
 ---
 
-# 📦 Installation
+# 🚧 Upcoming Development (next phases)
 
-### 1️⃣ Create virtual environment
+### 🔜 **SILVER Layer**
+
+* Data cleaning
+* Normalization
+* Deduplication
+* Data validation rules
+
+### 🔜 **GOLD Layer**
+
+* Feature engineering
+* Aggregates
+* Customer risk profiles
+* Fraud score features
+
+### 🔜 **Agentic AI Layer**
+
+* Profiler Agent → identifies fraud type
+* AutoML Agent → trains & selects best model
+* Fraud Agent → real-time predictions
+* AML Agent → compliance rule checks
+* Risk Agent → scoring & explanations
+
+### 🔜 **ML Layer**
+
+* Feature store
+* Model registry
+* Incremental training
+
+### 🔜 **API Layer**
+
+* FastAPI service
+* Endpoints for predictions & alerts
+
+### 🔜 **Streamlit Dashboard**
+
+* Fraud alerts
+* Visualization
+* Agent chat panel
+
+### 🔜 **Docker Deployment**
+
+* Streamlit container
+* API container
+* Orchestration using docker-compose
+
+---
+
+# 🔧 Installation
+
+### **1️⃣ Create virtual environment**
 
 ```
 python -m venv .venv
 ```
 
-### 2️⃣ Activate it
+### **2️⃣ Activate**
 
 PowerShell:
 
@@ -108,7 +170,7 @@ PowerShell:
 .venv\Scripts\activate
 ```
 
-### 3️⃣ Install dependencies
+### **3️⃣ Install dependencies**
 
 ```
 pip install -r requirements.txt
@@ -116,33 +178,36 @@ pip install -r requirements.txt
 
 ---
 
-# 📌 Features Completed (Bronze Layer)
+# 🔐 Environment Setup
 
-| Feature                      | Status |
-| ---------------------------- | ------ |
-| Snowpark session setup       | ✅ Done |
-| CSV → Snowflake stage upload | ✅ Done |
-| Auto schema inference        | ✅ Done |
-| Auto table creation          | ✅ Done |
-| Load CSV → Bronze table      | ✅ Done |
-| Config modularization        | ✅ Done |
+Create your own `.env` (not committed):
+
+```
+SNOWFLAKE_USER=
+SNOWFLAKE_PASSWORD=
+SNOWFLAKE_ACCOUNT=
+SNOWFLAKE_ROLE=
+SNOWFLAKE_WAREHOUSE=
+SNOWFLAKE_DATABASE=
+SNOWFLAKE_SCHEMA=
+SNOWFLAKE_STAGE=
+```
 
 ---
 
-# 🛠 Upcoming (Future Roadmap)
+# ▶ Running Bronze Ingestion
 
-✔ Silver layer transformation scripts
-✔ Gold layer transformation scripts
-✔ CI/CD (GitHub Actions)
-✔ Streamlit dashboard
-✔ Agentic Fraud Detection models
-✔ Orchestration (Airflow / Prefect)
+From project root:
+
+```
+python src/ingest/ingest_csv_to_bronze.py
+```
 
 ---
 
 # 🤝 Contributing
 
-Feel free to open issues or submit pull requests as the project grows.
+Open issues or PRs anytime.
 
 ---
 
