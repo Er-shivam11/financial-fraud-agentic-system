@@ -1,0 +1,11 @@
+alert_id,customer_id,txn_id,alert_type,status,created_at
+AL001,C013,T013,High Value,Resolved,2025-01-05 16:00:10
+AL002,C014,T014,Suspicious Merchant,Open,2025-01-05 17:10:40
+AL003,C001,T016,Foreign Location,Escalated,2025-01-06 03:00:22
+AL004,C001,T017,Rapid Transactions,Resolved,2025-01-06 03:10:55
+AL005,C012,T019,High Risk Merchant,Open,2025-01-06 05:00:18
+AL006,C007,T026,Unknown Location,Escalated,2025-01-08 02:50:33
+AL007,C010,T027,Foreign Travel,Resolved,2025-01-08 04:30:15
+AL008,C008,T028,Foreign High Spend,Open,2025-01-08 05:45:12
+AL009,C013,T029,Low Value,Ignored,2025-01-08 07:00:10
+AL010,C015,T030,Normal Activity,Closed,2025-01-08 07:50:55
