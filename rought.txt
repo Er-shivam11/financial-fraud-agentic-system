@@ -1,0 +1,66 @@
+git init
+git add .
+git commit -m "Initial commit: ingestion pipeline"
+git branch -M main
+git remote add origin https://github.com/YOUR_USERNAME/financial-fraud-agentic-system.git
+git push -u origin main
+
+to remove init at wrong path or dir
+
+rm -r -fo .git
+
+financial-fraud-agentic-system/
+│
+├── data/                       # raw CSV files
+│   ├── customers.csv
+│   ├── accounts.csv
+│   ├── merchant_info.csv
+│   ├── transactions.csv
+│   ├── fraud_labels.csv
+│   └── alerts_history.csv
+│
+├── src/
+│   ├── ingest/                 # Python ingestion scripts
+│   │   └── ingest_csv_to_bronze.py
+│   │
+│   ├── transform/              # silver & gold transformations
+│   │   ├── silver_transformations.sql
+│   │   └── gold_feature_engineering.sql
+│   │
+│   └── utils/
+│       └── snowflake_connection.py
+│
+├── stages/                     # documentation for stages (not actual files)
+│   └── readme.md
+│
+├── agents/
+│   ├── profiler_agent.py
+│   ├── automl_agent.py
+│   ├── fraud_agent.py
+│   ├── risk_agent.py
+│   └── aml_agent.py
+│
+├── ml/
+│   ├── train_model.py
+│   ├── feature_store.py
+│   └── model_registry/
+│
+├── api/
+│   ├── fastapi_app.py
+│   └── endpoints/
+│
+├── streamlit/
+│   ├── dashboard.py
+│   └── insights/
+│
+├── docker/
+│   ├── Dockerfile.api
+│   ├── Dockerfile.streamlit
+│   └── docker-compose.yml
+│
+├── configs/
+│   └── .env.template
+│
+├── README.md
+└── requirements.txt
+
