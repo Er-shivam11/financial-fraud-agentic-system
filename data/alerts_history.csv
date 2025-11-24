@@ -1,11 +1,9 @@
 alert_id,customer_id,txn_id,alert_type,status,created_at
-AL001,C013,T013,High Value,Resolved,2025-01-05 16:00:10
-AL002,C014,T014,Suspicious Merchant,Open,2025-01-05 17:10:40
-AL003,C001,T016,Foreign Location,Escalated,2025-01-06 03:00:22
-AL004,C001,T017,Rapid Transactions,Resolved,2025-01-06 03:10:55
-AL005,C012,T019,High Risk Merchant,Open,2025-01-06 05:00:18
-AL006,C007,T026,Unknown Location,Escalated,2025-01-08 02:50:33
-AL007,C010,T027,Foreign Travel,Resolved,2025-01-08 04:30:15
-AL008,C008,T028,Foreign High Spend,Open,2025-01-08 05:45:12
-AL009,C013,T029,Low Value,Ignored,2025-01-08 07:00:10
-AL010,C015,T030,Normal Activity,Closed,2025-01-08 07:50:55
+AL001,C001,T1001,HighValue,Open,2023-02-01 12:00:00
+AL002,C002,T1002,SuspiciousLocation,Closed,2023-03-19 16:00:00
+AL003,C003,T1003,HighValue,Open,2023-04-21 10:00:00
+AL004,C004,T1004,RepeatedTransaction,Open,2023-05-02 12:30:00
+AL005,C002,T1006,SuspiciousLocation,Closed,2023-07-11 13:00:00
+AL006,C007,T1008,HighValue,,2023-09-06 15:00:00
+AL007,C010,T1010,HighValue,Open,2023-10-03 19:00:00
+AL008,C011,T1009,Unknown,Closed,2023-10-02 10:00:00

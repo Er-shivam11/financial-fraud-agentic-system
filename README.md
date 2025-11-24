@@ -20,12 +20,24 @@ financial-fraud-agentic-system/
 │
 ├── src/
 │   │   ├── ingest_csv_to_bronze.py
-│   │   ├── silver_transformations.sql
-│   │   └── gold_feature_engineering.sql
-│       └── snowflake_connection.py
+│       ├── snowflake_connection.py
+│       ├── run_silver_pipeline.py
+│       ├── run_gold_pipeline.py
+│   
+├── silver/
+│     ├── customers.sql
+│     ├── accounts.sql
+│     ├── merchant_info.sql
+│     ├── transactions.sql
+│     ├── fraud_labels.sql
+│     └── alerts_history.sql
+│   
 │
-├── stages/
-│   └── readme.md               # Documentation of Snowflake stages
+├── models/
+│     ├── dim_customers.sql
+│     ├── dim_accounts.sql
+│     ├── dim_merchant_info.sql
+│     ├── fact_transactions.sql
 │
 ├── agents/                     # AI Agents (future modules)
 │   ├── profiler_agent.py
@@ -52,9 +64,7 @@ financial-fraud-agentic-system/
 │   ├── Dockerfile.streamlit
 │   └── docker-compose.yml
 │
-├── configs/
-│   └── .env.template           # Template for environment variables
-│
+├── .env│
 ├── README.md
 ├── .gitignore
 └── requirements.txt

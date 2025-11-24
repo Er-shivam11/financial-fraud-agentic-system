@@ -1,16 +1,11 @@
 merchant_id,merchant_name,category,country,risk_score
-M001,Amazon,Online Retail,USA,0.1
-M002,Flipkart,Online Retail,India,0.2
-M003,Myntra,Fashion,India,0.3
-M004,BigBazaar,Supermarket,India,0.2
-M005,Uber,Transport,USA,0.4
-M006,Ola,Transport,India,0.3
-M007,Zomato,Food Delivery,India,0.5
-M008,Swiggy,Food Delivery,India,0.4
-M009,Ajio,Fashion,India,0.3
-M010,Nykaa,Cosmetics,India,0.2
-M011,Airbnb,Travel,USA,0.5
-M012,MakeMyTrip,Travel,India,0.4
-M013,Starbucks,Cafe,USA,0.1
-M014,KFC,Restaurant,India,0.3
-M015,Visa,Financial Services,USA,0.6
+M001,Flipkart,E-commerce,India,30
+M002,Amazon,E-commerce,India,25
+M003,Walmart,Retail,USA,40
+M004,BigBasket,Grocery,India,20
+M005,Dominos,Food,India,35
+M006,BookMyShow,Entertainment,India,45
+M007,Paytm,Finance,India,50
+M008,Netflix,Entertainment,USA,60
+M009,Starbucks,Food,USA,55
+M010,Apple,Electronics,USA,30
