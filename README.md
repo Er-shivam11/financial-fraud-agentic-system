@@ -39,12 +39,17 @@ financial-fraud-agentic-system/
 │     ├── dim_merchant_info.sql
 │     ├── fact_transactions.sql
 │
-├── agents/                     # AI Agents (future modules)
+├── sample-agent/                     # AI Agents (future modules)
 │   ├── profiler_agent.py
 │   ├── automl_agent.py
 │   ├── fraud_agent.py
 │   ├── risk_agent.py
 │   └── aml_agent.py
+├── tools/                     # AI Agents (future modules)
+│   ├── aml_rules.py
+│   ├── fraud_rules.py
+│   ├── gold_tools.py
+│   ├── risk_rules.py
 │
 ├── ml/
 │   ├── train_model.py
