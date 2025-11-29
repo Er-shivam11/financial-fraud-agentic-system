@@ -1,232 +1,267 @@
-# 🚀 Financial Fraud Agentic System
-
-A full-stack **agentic, multi-service** pipeline for Fraud Detection, AML/KYC Compliance, Transaction Risk Scoring, and automated ML.
-This system integrates **Snowflake**, **Python**, **Streamlit**, **FastAPI**, **Agents**, **ML**, and **Docker** into one production-ready architecture.
+Here is your **final, polished, professional README.md** — clean, structured, and ready for Kaggle, GitHub, or portfolio use.
 
 ---
 
-# 📁 Project Structure
+# **AI Multi-Agent Financial Fraud & Compliance Automation System**
+
+*A Production-Ready Multi-Agent System for Financial Insights, Fraud Detection & Explainable Compliance Analysis*
+
+---
+
+## 🚀 **Overview**
+
+Financial institutions generate massive amounts of customer, account, and transaction data. Yet, analysts still rely on manual lookups or static dashboards to answer basic operational queries.
+
+This project solves that problem.
+
+**AI Multi-Agent Financial Fraud & Compliance Automation System** is a fully functional, production-style multi-agent architecture built using:
+
+* **Google ADK (Agent Developer Kit)**
+* **Gemini 2.5 Flash Lite**
+* **Streamlit Dashboard**
+* **Tool-Augmented Reasoning**
+* **Real-time Structured Data Retrieval**
+
+It allows users to ask natural language questions such as:
+
+* *“Show me the balance for Account A1001”*
+* *“Find suspicious merchants for Indian customers”*
+* *“Summarize fraud alerts for this month”*
+
+…and get structured tables + clean explanations instantly.
+
+---
+
+## 🎯 **Key Features**
+
+### **AI Multi-Agent Architecture**
+
+✔ **FinancialOpsAgent**
+Retrieves customer details, account balances, and transaction history.
+
+✔ **FraudRiskAgent**
+Identifies suspicious merchants and explains fraud risks.
+
+✔ **UnifiedSupportAgent (Orchestrator)**
+Routes queries, combines outputs, and returns final explanations.
+
+---
+
+### **Real-Time Structured Financial Insights**
+
+* Natural language → **tool calls**
+* Simulated Snowflake-like data lookup
+* Schema-aware structured responses
+* Works with customer, account, merchant & transaction metadata
+
+---
+
+### **Fraud Detection**
+
+* Merchant risk evaluation
+* Suspicious transaction lookup
+* Clear human-readable fraud summaries
+
+---
+
+### **Explainable AI**
+
+* Transparent reasoning
+* Clear steps
+* Tool-call traces via ADK runner
+* Narrative summaries + DataFrames
+
+---
+
+### **Fully Interactive Streamlit UI**
+
+✔ Input queries
+✔ View structured tables
+✔ Read agent summary
+✔ View history of previous queries
+✔ ADK event-based debugging
+
+---
+
+## 📦 **Project Structure**
 
 ```
 financial-fraud-agentic-system/
 │
-├── data/                       # Raw CSV datasets
-│   ├── customers.csv
-│   ├── accounts.csv
-│   ├── merchant_info.csv
-│   ├── transactions.csv
-│   ├── fraud_labels.csv
-│   └── alerts_history.csv
-│
-├── src/
-│   │   ├── ingest_csv_to_bronze.py
-│       ├── snowflake_connection.py
-│       ├── run_silver_pipeline.py
-│       ├── run_gold_pipeline.py
-│   
-├── silver/
-│     ├── customers.sql
-│     ├── accounts.sql
-│     ├── merchant_info.sql
-│     ├── transactions.sql
-│     ├── fraud_labels.sql
-│     └── alerts_history.sql
-│   
-│
-├── models/
-│     ├── dim_customers.sql
-│     ├── dim_accounts.sql
-│     ├── dim_merchant_info.sql
-│     ├── fact_transactions.sql
-│
-├── sample-agent/                     # AI Agents (future modules)
-│   ├── profiler_agent.py
-│   ├── automl_agent.py
-│   ├── fraud_agent.py
-│   ├── risk_agent.py
-│   └── aml_agent.py
-├── tools/                     # AI Agents (future modules)
-│   ├── aml_rules.py
-│   ├── fraud_rules.py
-│   ├── gold_tools.py
-│   ├── risk_rules.py
-│
-├── ml/
-│   ├── train_model.py
-│   ├── feature_store.py
-│   └── model_registry/
-│
-├── api/
-│   ├── fastapi_app.py
-│   └── endpoints/
-│
-├── streamlit/
-│   ├── dashboard.py
-│   └── insights/
-│
-├── docker/
-│   ├── Dockerfile.api
-│   ├── Dockerfile.streamlit
-│   └── docker-compose.yml
-│
-├── .env│
+├── main.py
 ├── README.md
-├── .gitignore
-└── requirements.txt
+├── requirements.txt
+│
+├── streamlit_app/
+│   ├── app.py
+│
+├── financial_agent/
+│   ├── __init__.py
+│   ├── agent.py
+│   ├── fraud_agent.py
+│   ├── snowflake_tool.py
+│   ├── .env
+│
+└── .venv/
 ```
 
 ---
 
-# 🎯 Project Goals
+## 🧠 **System Architecture**
 
-This system enables:
+### **1. Data Layer (Simulated Snowflake)**
 
-### ✅ Automated ingestion → transformation → feature engineering → ML → agents
+Tools for data retrieval:
 
-### ✅ Real-time fraud detection
+* `get_customer_info`
+* `get_account_balance`
+* `get_transaction_info`
+* `get_merchant_risk`
 
-### ✅ AML/KYC compliance checks
-
-### ✅ Risk scoring + alert explanations
-
-### ✅ Streamlit insights + API services
-
-### ✅ Docker microservices for deployment
+These mock Snowflake queries while keeping the project lightweight.
 
 ---
 
-# 🏗 Current Progress (Completed)
+### **2. Multi-Agent Layer**
 
-### ✔ **1. Data Preparation**
+#### **FinancialOpsAgent**
 
-* All raw datasets ready in `/data`.
+* Customer lookup
+* Account balances
+* Transaction data
 
-### ✔ **2. Snowflake Connectivity**
+#### **FraudRiskAgent**
 
-`src/utils/snowflake_connection.py` manages:
+* Merchant risk scores
+* Suspicious transaction detection
+* Fraud explanation generation
 
-* Session creation
-* Automatic environment loading
-* Safe connection handling
+#### **UnifiedSupportAgent**
 
-### ✔ **3. Bronze Ingestion Layer**
-
-`src/ingest/ingest_csv_to_bronze.py` supports:
-
-* Upload CSV → Snowflake Stage
-* Auto schema detection
-* Auto Bronze table creation
-* Load data into `BRONZE` schema
+* Orchestrates both agents
+* Handles complex cross-domain queries
+* Generates combined summaries
 
 ---
 
-# 🚧 Upcoming Development (next phases)
+### **3. Frontend Layer (Streamlit UI)**
 
-### 🔜 **SILVER Layer**
-
-* Data cleaning
-* Normalization
-* Deduplication
-* Data validation rules
-
-### 🔜 **GOLD Layer**
-
-* Feature engineering
-* Aggregates
-* Customer risk profiles
-* Fraud score features
-
-### 🔜 **Agentic AI Layer**
-
-* Profiler Agent → identifies fraud type
-* AutoML Agent → trains & selects best model
-* Fraud Agent → real-time predictions
-* AML Agent → compliance rule checks
-* Risk Agent → scoring & explanations
-
-### 🔜 **ML Layer**
-
-* Feature store
-* Model registry
-* Incremental training
-
-### 🔜 **API Layer**
-
-* FastAPI service
-* Endpoints for predictions & alerts
-
-### 🔜 **Streamlit Dashboard**
-
-* Fraud alerts
-* Visualization
-* Agent chat panel
-
-### 🔜 **Docker Deployment**
-
-* Streamlit container
-* API container
-* Orchestration using docker-compose
+* Natural language query input
+* Table rendering
+* Narrative summary
+* Async execution
+* History tracking
 
 ---
 
-# 🔧 Installation
+## 🛠️ **Tech Stack**
 
-### **1️⃣ Create virtual environment**
+| Component       | Technology            |
+| --------------- | --------------------- |
+| AI Models       | Gemini 2.5 Flash Lite |
+| Agent Framework | Google ADK            |
+| UI              | Streamlit             |
+| Dataframes      | Pandas                |
+| Environment     | Python + dotenv       |
 
-```
-python -m venv .venv
-```
+---
 
-### **2️⃣ Activate**
+## ▶️ **How to Run Locally**
 
-PowerShell:
+### **1. Create Environment**
 
-```
-.venv\Scripts\activate
-```
-
-### **3️⃣ Install dependencies**
-
-```
+```bash
 pip install -r requirements.txt
 ```
 
----
+### **2. Start ADK Agent Backend**
 
-# 🔐 Environment Setup
-
-Create your own `.env` (not committed):
-
+```bash
+adk web --port 9001
 ```
-SNOWFLAKE_USER=
-SNOWFLAKE_PASSWORD=
-SNOWFLAKE_ACCOUNT=
-SNOWFLAKE_ROLE=
-SNOWFLAKE_WAREHOUSE=
-SNOWFLAKE_DATABASE=
-SNOWFLAKE_SCHEMA=
-SNOWFLAKE_STAGE=
+
+### **3. Start Streamlit App**
+
+```bash
+streamlit run streamlit_app/app.py
 ```
 
 ---
 
-# ▶ Running Bronze Ingestion
+## 🧪 **Test Queries (main.py)**
 
-From project root:
-
+```python
+tests = [
+    "find fraud alerts for indian customers",
+    "show total balance by account type",
+    "which merchants are most risky",
+    "generate summary report for all customers"
+]
 ```
-python src/ingest/ingest_csv_to_bronze.py
+
+Run with:
+
+```bash
+python main.py
 ```
 
 ---
 
-# 🤝 Contributing
+## 📈 **Example Use Cases**
 
-Open issues or PRs anytime.
+* Fraud Operations
+* Compliance Monitoring
+* Customer Support Automation
+* Merchant Risk Screening
+* Analyst Data Lookup
 
 ---
 
-# 📜 License
+## 🔍 **Sample Query Flow**
 
-MIT License.
+**User:**
+“Find fraud alerts for Indian customers”
 
+**UnifiedSupportAgent:**
+→ FinancialOpsAgent → fetch customer + transactions
+→ FraudRiskAgent → evaluate merchant risk
+→ Combine + summarize
+
+**Output:**
+
+* Structured Pandas table
+* Fraud explanation
+* Merchant risk breakdown
+
+---
+
+## 🧬 **Retry Logic, Robustness & Observability**
+
+* Exponential backoff
+* 5 retry attempts
+* HTTP failure resistance
+* Tool-call traceability
+* ADK event-level debugging
+
+---
+
+## 📌 **Future Enhancements**
+
+* Real Snowflake integration
+* Advanced graph-based fraud detection
+* Real-time streaming alerts
+* Multi-language customer query support
+* Role-based access (RBAC)
+
+---
+
+## 🏁 **Conclusion**
+
+This system demonstrates:
+
+* How AI agents can automate financial operations
+* How multi-agent routing reduces manual workload
+* How LLMs + structured tools generate **reliable, explainable results**
+* How a complete agent ecosystem can be built using Google ADK
+
+It is a **practical, extensible prototype** suitable for banking, fintech, fraud analytics, and compliance teams.

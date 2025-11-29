@@ -1,9 +1,0 @@
-alert_id,customer_id,txn_id,alert_type,status,created_at
-AL001,C001,T1001,HighValue,Open,2023-02-01 12:00:00
-AL002,C002,T1002,SuspiciousLocation,Closed,2023-03-19 16:00:00
-AL003,C003,T1003,HighValue,Open,2023-04-21 10:00:00
-AL004,C004,T1004,RepeatedTransaction,Open,2023-05-02 12:30:00
-AL005,C002,T1006,SuspiciousLocation,Closed,2023-07-11 13:00:00
-AL006,C007,T1008,HighValue,,2023-09-06 15:00:00
-AL007,C010,T1010,HighValue,Open,2023-10-03 19:00:00
-AL008,C011,T1009,Unknown,Closed,2023-10-02 10:00:00
