@@ -1,7 +1,3 @@
-Here is your **final, polished, professional README.md** — clean, structured, and ready for Kaggle, GitHub, or portfolio use.
-
----
-
 # **AI Multi-Agent Financial Fraud & Compliance Automation System**
 
 *A Production-Ready Multi-Agent System for Financial Insights, Fraud Detection & Explainable Compliance Analysis*
