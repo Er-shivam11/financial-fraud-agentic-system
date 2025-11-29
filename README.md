@@ -1,4 +1,4 @@
-![AI](financial-fraud-agentic-system\main.png)
+![AI](main.png)
 # **AI Multi-Agent Financial Fraud & Compliance Automation System**
 
 *A Production-Ready Multi-Agent System for Financial Insights, Fraud Detection & Explainable Compliance Analysis*
