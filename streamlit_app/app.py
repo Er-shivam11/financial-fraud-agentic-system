@@ -32,6 +32,8 @@ async def run_agent_query(q):
     events = await runner.run_debug(q)
     return events
 
+import asyncio
+
 def handle_query():
     query = st.session_state.query.strip()
     if not query:
@@ -40,8 +42,13 @@ def handle_query():
 
     with st.spinner("Running your query..."):
         try:
-            # Run the async agent
-            response = asyncio.run(run_agent_query(query))
+            loop = asyncio.get_event_loop()
+        except RuntimeError:  # no loop in current thread
+            loop = asyncio.new_event_loop()
+            asyncio.set_event_loop(loop)
+
+        try:
+            response = loop.run_until_complete(run_agent_query(query))
         except Exception as e:
             st.error(f"Error running agent: {e}")
             return
@@ -49,6 +56,7 @@ def handle_query():
     # Save response to session state
     st.session_state.responses.append((query, response))
     st.session_state.query = ""  # Clear input
+
 
 st.button("Run Query", on_click=handle_query)
 
