@@ -1,264 +1,205 @@
 ![AI](main.png)
-# **AI Multi-Agent Financial Fraud & Compliance Automation System**
+# Production AI Banking Assistant (LangGraph + Snowflake)
 
-*A Production-Ready Multi-Agent System for Financial Insights, Fraud Detection & Explainable Compliance Analysis*
+Act as a Senior AI Engineer, Python Architect, and LangGraph expert.
 
----
+Build a production-quality AI Banking Assistant using Python, LangGraph, Snowflake, Chroma, and OpenAI. The goal is educational: I want to learn every major AI Engineering concept by building one realistic project incrementally.
 
-## 🚀 **Overview**
+## Requirements
 
-Financial institutions generate massive amounts of customer, account, and transaction data. Yet, analysts still rely on manual lookups or static dashboards to answer basic operational queries.
+* Use clean architecture and production folder structure.
+* Keep every phase beginner-friendly with minimal code.
+* Explain every file before writing code.
+* Follow SOLID principles and separation of concerns.
+* Do not over-engineer or introduce unnecessary abstractions.
+* Reuse existing code whenever possible.
+* Add one AI concept per phase.
 
-This project solves that problem.
+## Technologies
 
-**AI Multi-Agent Financial Fraud & Compliance Automation System** is a fully functional, production-style multi-agent architecture built using:
+* Python
+* LangGraph
+* LangChain
+* Snowflake Snowpark
+* Chroma Vector Database
+* OpenAI LLM
+* OpenAI Embeddings
+* python-dotenv
+* Pandas
 
-* **Google ADK (Agent Developer Kit)**
-* **Gemini 2.5 Flash Lite**
-* **Streamlit Dashboard**
-* **Tool-Augmented Reasoning**
-* **Real-time Structured Data Retrieval**
+## Existing Database
 
-It allows users to ask natural language questions such as:
+Database: AI_BANKING
 
-* *“Show me the balance for Account A1001”*
-* *“Find suspicious merchants for Indian customers”*
-* *“Summarize fraud alerts for this month”*
+Schema: CORE
 
-…and get structured tables + clean explanations instantly.
+### DIM_CUSTOMER
 
----
+* CUSTOMER_ID (PK)
+* FIRST_NAME
+* LAST_NAME
+* AGE
+* COUNTRY
 
-## 🎯 **Key Features**
+### DIM_ACCOUNT
 
-### **AI Multi-Agent Architecture**
+* ACCOUNT_ID (PK)
+* CUSTOMER_ID (FK)
+* ACCOUNT_TYPE
+* BALANCE
 
-✔ **FinancialOpsAgent**
-Retrieves customer details, account balances, and transaction history.
+### DIM_MERCHANT
 
-✔ **FraudRiskAgent**
-Identifies suspicious merchants and explains fraud risks.
+* MERCHANT_ID (PK)
+* MERCHANT_NAME
+* CATEGORY
+* RISK_SCORE
 
-✔ **UnifiedSupportAgent (Orchestrator)**
-Routes queries, combines outputs, and returns final explanations.
+### FACT_TRANSACTIONS
 
----
+* TRANSACTION_ID (PK)
+* CUSTOMER_ID (FK)
+* ACCOUNT_ID (FK)
+* MERCHANT_ID (FK)
+* AMOUNT
+* IS_FRAUD
 
-### **Real-Time Structured Financial Insights**
+## Relationships
 
-* Natural language → **tool calls**
-* Simulated Snowflake-like data lookup
-* Schema-aware structured responses
-* Works with customer, account, merchant & transaction metadata
+DIM_CUSTOMER.CUSTOMER_ID
+→ DIM_ACCOUNT.CUSTOMER_ID
+→ FACT_TRANSACTIONS.CUSTOMER_ID
 
----
+DIM_ACCOUNT.ACCOUNT_ID
+→ FACT_TRANSACTIONS.ACCOUNT_ID
 
-### **Fraud Detection**
+DIM_MERCHANT.MERCHANT_ID
+→ FACT_TRANSACTIONS.MERCHANT_ID
 
-* Merchant risk evaluation
-* Suspicious transaction lookup
-* Clear human-readable fraud summaries
+## Final Architecture
 
----
+User
 
-### **Explainable AI**
+↓
 
-* Transparent reasoning
-* Clear steps
-* Tool-call traces via ADK runner
-* Narrative summaries + DataFrames
+Manager Agent
 
----
+↓
 
-### **Fully Interactive Streamlit UI**
+Routes requests to:
 
-✔ Input queries
-✔ View structured tables
-✔ Read agent summary
-✔ View history of previous queries
-✔ ADK event-based debugging
+* SQL Tool (Snowflake)
+* RAG Tool (Chroma + Embeddings)
+* Calculator Tool (Python)
 
----
+↓
 
-## 📦 **Project Structure**
+Fraud Analyst Agent
 
-```
-financial-fraud-agentic-system/
-│
-├── main.py
-├── README.md
-├── requirements.txt
-│
-├── streamlit_app/
-│   ├── app.py
-│
-├── financial_agent/
-│   ├── __init__.py
-│   ├── agent.py
-│   ├── fraud_agent.py
-│   ├── snowflake_tool.py
-│   ├── .env
-│
-└── .venv/
-```
+↓
 
----
+Conversation Memory (LangGraph MemorySaver)
 
-## 🧠 **System Architecture**
+↓
 
-### **1. Data Layer (Simulated Snowflake)**
+Final Response
 
-Tools for data retrieval:
+## Tools
 
-* `get_customer_info`
-* `get_account_balance`
-* `get_transaction_info`
-* `get_merchant_risk`
+1. SQL Tool
 
-These mock Snowflake queries while keeping the project lightweight.
+* Execute SQL on Snowflake.
+* Return structured results.
 
----
+2. RAG Tool
 
-### **2. Multi-Agent Layer**
+* Search embedded documents from Chroma.
+* Return relevant context.
 
-#### **FinancialOpsAgent**
+3. Calculator Tool
 
-* Customer lookup
-* Account balances
-* Transaction data
+* Perform arithmetic and statistics.
+* Used instead of LLM calculations.
 
-#### **FraudRiskAgent**
+## Agents
 
-* Merchant risk scores
-* Suspicious transaction detection
-* Fraud explanation generation
+### Manager Agent
 
-#### **UnifiedSupportAgent**
+* Understand user intent.
+* Select the correct tool or agent.
+* Combine outputs.
 
-* Orchestrates both agents
-* Handles complex cross-domain queries
-* Generates combined summaries
+### Fraud Analyst Agent
 
----
+* Interpret transaction, customer, and merchant data.
+* Explain fraud risk in natural language.
+* Never execute SQL directly.
 
-### **3. Frontend Layer (Streamlit UI)**
+## Memory
 
-* Natural language query input
-* Table rendering
-* Narrative summary
-* Async execution
-* History tracking
+Use LangGraph MemorySaver.
 
----
+The assistant should remember previous conversation context.
 
-## 🛠️ **Tech Stack**
+Example:
 
-| Component       | Technology            |
-| --------------- | --------------------- |
-| AI Models       | Gemini 2.5 Flash Lite |
-| Agent Framework | Google ADK            |
-| UI              | Streamlit             |
-| Dataframes      | Pandas                |
-| Environment     | Python + dotenv       |
+User: Show customer C001.
 
----
+Later:
 
-## ▶️ **How to Run Locally**
+User: What is his balance?
 
-### **1. Create Environment**
+The assistant should remember that "his" refers to customer C001.
 
-```bash
-pip install -r requirements.txt
-```
+## RAG
 
-### **2. Start ADK Agent Backend**
+Use Chroma for vector storage.
 
-```bash
-adk web --port 9001
-```
+Later I will add PDFs such as:
 
-### **3. Start Streamlit App**
+* Fraud Policy
+* KYC Policy
+* AML Guidelines
+* Banking SOP
 
-```bash
-streamlit run streamlit_app/app.py
-```
+Only these documents should be embedded. Structured Snowflake tables should continue to be queried through SQL rather than RAG.
 
----
+## Development Strategy
 
-## 🧪 **Test Queries (main.py)**
+Build the project incrementally.
 
-```python
-tests = [
-    "find fraud alerts for indian customers",
-    "show total balance by account type",
-    "which merchants are most risky",
-    "generate summary report for all customers"
-]
-```
+For each phase:
 
-Run with:
+1. Explain the concept.
+2. Explain which files are added or modified.
+3. Generate only the code needed for that phase.
+4. Ensure the project runs before moving to the next phase.
+5. Keep code concise, readable, and production-ready.
 
-```bash
-python main.py
-```
+The learning roadmap is:
 
----
+Phase 1 – Snowflake Connection & LLM
 
-## 📈 **Example Use Cases**
+Phase 2 – SQL Tool
 
-* Fraud Operations
-* Compliance Monitoring
-* Customer Support Automation
-* Merchant Risk Screening
-* Analyst Data Lookup
+Phase 3 – LangGraph Workflow
 
----
+Phase 4 – Conversation Memory
 
-## 🔍 **Sample Query Flow**
+Phase 5 – Embeddings
 
-**User:**
-“Find fraud alerts for Indian customers”
+Phase 6 – Chroma Vector Database
 
-**UnifiedSupportAgent:**
-→ FinancialOpsAgent → fetch customer + transactions
-→ FraudRiskAgent → evaluate merchant risk
-→ Combine + summarize
+Phase 7 – RAG
 
-**Output:**
+Phase 8 – Manager Agent
 
-* Structured Pandas table
-* Fraud explanation
-* Merchant risk breakdown
+Phase 9 – Fraud Analyst Agent
 
----
+Phase 10 – Complete Multi-Agent AI Banking Assistant
 
-## 🧬 **Retry Logic, Robustness & Observability**
+Do not generate the entire project at once. Build one phase at a time with complete explanations so I understand every AI Engineering concept before moving to the next phase.
 
-* Exponential backoff
-* 5 retry attempts
-* HTTP failure resistance
-* Tool-call traceability
-* ADK event-level debugging
 
----
 
-## 📌 **Future Enhancements**
 
-* Real Snowflake integration
-* Advanced graph-based fraud detection
-* Real-time streaming alerts
-* Multi-language customer query support
-* Role-based access (RBAC)
-
----
-
-## 🏁 **Conclusion**
-
-This system demonstrates:
-
-* How AI agents can automate financial operations
-* How multi-agent routing reduces manual workload
-* How LLMs + structured tools generate **reliable, explainable results**
-* How a complete agent ecosystem can be built using Google ADK
-
-It is a **practical, extensible prototype** suitable for banking, fintech, fraud analytics, and compliance teams.
