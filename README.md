@@ -198,8 +198,6 @@ Phase 9 – Fraud Analyst Agent
 
 Phase 10 – Complete Multi-Agent AI Banking Assistant
 
-Do not generate the entire project at once. Build one phase at a time with complete explanations so I understand every AI Engineering concept before moving to the next phase.
-
-
+still in progress...stay tuned.
 
 
