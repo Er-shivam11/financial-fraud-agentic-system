@@ -1,4 +1,4 @@
-![AI](main.png)
+![AI](future/main.png)
 # Production AI Banking Assistant (LangGraph + Snowflake)
 
 Act as a Senior AI Engineer, Python Architect, and LangGraph expert.
