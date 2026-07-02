@@ -1,203 +1,231 @@
 ![AI](future/main.png)
+# ![AI](future/main.png)
+
 # Production AI Banking Assistant (LangGraph + Snowflake)
 
-Act as a Senior AI Engineer, Python Architect, and LangGraph expert.
+A production-inspired AI Banking Assistant built to learn modern AI Engineering concepts by implementing them incrementally using LangGraph, Snowflake, OpenAI, and Retrieval-Augmented Generation (RAG).
 
-Build a production-quality AI Banking Assistant using Python, LangGraph, Snowflake, Chroma, and OpenAI. The goal is educational: I want to learn every major AI Engineering concept by building one realistic project incrementally.
+This project focuses on understanding how enterprise AI assistants are designed—from SQL agents and conversation memory to vector databases, multi-agent workflows, and production-ready architecture.
 
-## Requirements
+> **Project Status:** 🚧 In Progress
 
-* Use clean architecture and production folder structure.
-* Keep every phase beginner-friendly with minimal code.
-* Explain every file before writing code.
-* Follow SOLID principles and separation of concerns.
-* Do not over-engineer or introduce unnecessary abstractions.
-* Reuse existing code whenever possible.
-* Add one AI concept per phase.
+---
 
-## Technologies
+## Project Goals
+
+The primary objective of this project is to gain hands-on experience with real-world AI Engineering concepts by building one production-style application step by step.
+
+Each phase introduces a single concept while keeping the implementation clean, modular, and beginner-friendly.
+
+Topics covered include:
+
+* AI Agent Architecture
+* LangGraph Workflows
+* Tool Calling
+* Conversation Memory
+* Retrieval-Augmented Generation (RAG)
+* Vector Databases
+* Multi-Agent Systems
+* Production Project Structure
+* Snowflake Integration
+* LLM Application Development
+
+---
+
+## Tech Stack
 
 * Python
 * LangGraph
 * LangChain
+* OpenAI GPT Models
+* OpenAI Embeddings
 * Snowflake Snowpark
 * Chroma Vector Database
-* OpenAI LLM
-* OpenAI Embeddings
-* python-dotenv
 * Pandas
+* python-dotenv
 
-## Existing Database
+---
 
-Database: AI_BANKING
+## Banking Dataset
 
-Schema: CORE
+The project uses a simplified banking data warehouse stored in Snowflake.
 
-### DIM_CUSTOMER
+### Customer
 
-* CUSTOMER_ID (PK)
+* CUSTOMER_ID
 * FIRST_NAME
 * LAST_NAME
 * AGE
 * COUNTRY
 
-### DIM_ACCOUNT
+### Account
 
-* ACCOUNT_ID (PK)
-* CUSTOMER_ID (FK)
+* ACCOUNT_ID
+* CUSTOMER_ID
 * ACCOUNT_TYPE
 * BALANCE
 
-### DIM_MERCHANT
+### Merchant
 
-* MERCHANT_ID (PK)
+* MERCHANT_ID
 * MERCHANT_NAME
 * CATEGORY
 * RISK_SCORE
 
-### FACT_TRANSACTIONS
+### Transactions
 
-* TRANSACTION_ID (PK)
-* CUSTOMER_ID (FK)
-* ACCOUNT_ID (FK)
-* MERCHANT_ID (FK)
+* TRANSACTION_ID
+* CUSTOMER_ID
+* ACCOUNT_ID
+* MERCHANT_ID
 * AMOUNT
 * IS_FRAUD
 
-## Relationships
+---
 
-DIM_CUSTOMER.CUSTOMER_ID
-→ DIM_ACCOUNT.CUSTOMER_ID
-→ FACT_TRANSACTIONS.CUSTOMER_ID
+## System Architecture
 
-DIM_ACCOUNT.ACCOUNT_ID
-→ FACT_TRANSACTIONS.ACCOUNT_ID
-
-DIM_MERCHANT.MERCHANT_ID
-→ FACT_TRANSACTIONS.MERCHANT_ID
-
-## Final Architecture
-
+```
 User
-
-↓
-
+   │
+   ▼
 Manager Agent
-
-↓
-
-Routes requests to:
-
-* SQL Tool (Snowflake)
-* RAG Tool (Chroma + Embeddings)
-* Calculator Tool (Python)
-
-↓
-
+   │
+   ├── SQL Tool (Snowflake)
+   ├── RAG Tool (Chroma)
+   └── Calculator Tool (Python)
+   │
+   ▼
 Fraud Analyst Agent
-
-↓
-
-Conversation Memory (LangGraph MemorySaver)
-
-↓
-
+   │
+   ▼
+Conversation Memory
+(LangGraph MemorySaver)
+   │
+   ▼
 Final Response
+```
 
-## Tools
+---
 
-1. SQL Tool
+## Core Components
 
-* Execute SQL on Snowflake.
-* Return structured results.
+### SQL Tool
 
-2. RAG Tool
+* Executes SQL queries on Snowflake
+* Retrieves structured banking data
+* Returns formatted results to the agent
 
-* Search embedded documents from Chroma.
-* Return relevant context.
+### RAG Tool
 
-3. Calculator Tool
+* Searches embedded banking documents
+* Retrieves relevant context using Chroma
+* Supports policy and documentation queries
 
-* Perform arithmetic and statistics.
-* Used instead of LLM calculations.
+### Calculator Tool
 
-## Agents
+* Performs arithmetic and statistical calculations
+* Avoids unnecessary LLM computations
 
 ### Manager Agent
 
-* Understand user intent.
-* Select the correct tool or agent.
-* Combine outputs.
+* Understands user intent
+* Chooses the appropriate tool or agent
+* Combines results into a single response
 
 ### Fraud Analyst Agent
 
-* Interpret transaction, customer, and merchant data.
-* Explain fraud risk in natural language.
-* Never execute SQL directly.
+* Analyzes customers, merchants, and transactions
+* Explains fraud indicators in natural language
+* Relies on retrieved data rather than executing SQL directly
 
-## Memory
+---
 
-Use LangGraph MemorySaver.
+## Conversation Memory
 
-The assistant should remember previous conversation context.
+The assistant uses **LangGraph MemorySaver** to maintain conversation context.
 
 Example:
 
-User: Show customer C001.
+```
+User:
+Show customer C001.
 
-Later:
+Assistant:
+Displays customer details.
 
-User: What is his balance?
+User:
+What is his balance?
 
-The assistant should remember that "his" refers to customer C001.
+Assistant:
+Understands that "his" refers to customer C001.
+```
 
-## RAG
+---
 
-Use Chroma for vector storage.
+## Retrieval-Augmented Generation (RAG)
 
-Later I will add PDFs such as:
+Structured banking data is queried directly from Snowflake.
+
+Unstructured knowledge is retrieved using Chroma vector search.
+
+Planned knowledge sources include:
 
 * Fraud Policy
 * KYC Policy
 * AML Guidelines
-* Banking SOP
+* Banking SOPs
 
-Only these documents should be embedded. Structured Snowflake tables should continue to be queried through SQL rather than RAG.
+---
 
-## Development Strategy
+## Learning Roadmap
 
-Build the project incrementally.
+* ✅ Phase 1 – Snowflake Connection & LLM
+* ✅ Phase 2 – SQL Tool
+* ✅ Phase 3 – LangGraph Workflow
+* ✅ Phase 4 – Conversation Memory
+* ⏳ Phase 5 – OpenAI Embeddings
+* ⏳ Phase 6 – Chroma Vector Database
+* ⏳ Phase 7 – Retrieval-Augmented Generation (RAG)
+* ⏳ Phase 8 – Manager Agent
+* ⏳ Phase 9 – Fraud Analyst Agent
+* ⏳ Phase 10 – Complete Multi-Agent Banking Assistant
 
-For each phase:
+---
 
-1. Explain the concept.
-2. Explain which files are added or modified.
-3. Generate only the code needed for that phase.
-4. Ensure the project runs before moving to the next phase.
-5. Keep code concise, readable, and production-ready.
+## Learning Approach
 
-The learning roadmap is:
+Each phase is designed to:
 
-Phase 1 – Snowflake Connection & LLM
+* Introduce one new AI Engineering concept
+* Keep the implementation simple and production-oriented
+* Reuse existing components where possible
+* Maintain clean architecture and separation of concerns
+* Ensure the project is fully runnable before moving to the next phase
 
-Phase 2 – SQL Tool
+---
 
-Phase 3 – LangGraph Workflow
+## Future Enhancements
 
-Phase 4 – Conversation Memory
+* Streaming responses
+* Human-in-the-loop workflows
+* Multi-LLM support
+* Observability with LangSmith
+* Agent evaluation framework
+* Authentication & role-based access
+* Deployment with Docker and cloud services
+* CI/CD pipeline
+* Monitoring and logging
 
-Phase 5 – Embeddings
+---
 
-Phase 6 – Chroma Vector Database
+## Repository Status
 
-Phase 7 – RAG
+🚧 This project is actively under development.
 
-Phase 8 – Manager Agent
+New phases and features will be added as the learning journey progresses.
 
-Phase 9 – Fraud Analyst Agent
+Stay tuned!
 
-Phase 10 – Complete Multi-Agent AI Banking Assistant
-
-still in progress...stay tuned.
 
 
