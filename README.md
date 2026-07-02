@@ -1,5 +1,5 @@
 ![AI](future/main.png)
-# ![AI](future/main.png)
+
 
 # Production AI Banking Assistant (LangGraph + Snowflake)
 
