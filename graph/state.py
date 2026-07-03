@@ -10,3 +10,5 @@ class BankingState(TypedDict):
     result: Optional[list]
 
     answer: Optional[str]
+
+    history: Optional[list]

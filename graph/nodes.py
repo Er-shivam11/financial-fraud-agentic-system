@@ -4,11 +4,13 @@ from tools.sql_tool import sql_tool
 
 def sql_generator_node(state):
 
-    sql = generate_sql(state["question"])
+    sql = generate_sql(
+        state["question"],
+        state.get("history", [])
+    )
 
     return {
-        **state,
-        "sql": sql,
+        "sql": sql
     }
 
 
@@ -26,10 +28,24 @@ def explain_node(state):
 
     answer = explain(
         state["question"],
-        state["result"],
+        state["result"]
     )
 
+    history = state.get("history", [])
+
+    history.append(
+        {
+            "question": state["question"],
+            "sql": state["sql"],
+            "result": state["result"],
+            "answer": answer,
+        }
+    )
+
+    # Keep only the latest interaction
+    history = history[-1:]
+
     return {
-        **state,
         "answer": answer,
+        "history": history,
     }
