@@ -223,6 +223,200 @@ Each phase is designed to:
 
 🚧 This project is actively under development.
 
+<details>
+<summary>Live status</summary>
+Absolutely. Here's the updated project status based on the phases we've completed.
+
+---
+
+# 📁 Current Project Structure (After Phase 5)
+
+```text
+banking-ai-assistant/
+│
+├── app.py                          ✅
+├── config.py                       ✅
+├── requirements.txt                ✅
+├── .env                            ✅
+│
+├── database/
+│   ├── __init__.py                 ✅
+│   └── snowflake.py                ✅
+│
+├── services/
+│   ├── __init__.py                 ✅
+│   └── llm_service.py              ✅
+│
+├── tools/
+│   ├── __init__.py                 ✅
+│   └── sql_tool.py                 ✅
+│
+├── graph/
+│   ├── __init__.py                 ✅
+│   ├── state.py                    ✅
+│   ├── nodes.py                    ✅
+│   └── workflow.py                 ✅
+│
+├── prompts/
+│   └── sql_prompt.txt              ✅
+│
+├── embeddings/
+│   ├── __init__.py                 ✅
+│   └── embedding_service.py        ✅
+│
+└── chroma/                         ⏳ Phase 6
+    ├── __init__.py
+    └── vector_store.py
+```
+
+---
+
+# ✅ Phase Progress
+
+| Phase       | Status  | Main Concept           |
+| ----------- | ------- | ---------------------- |
+| ✅ Phase 1   | Done    | Gemini + Snowflake     |
+| ✅ Phase 2   | Done    | LangChain SQL Tool     |
+| ✅ Phase 3   | Done    | LangGraph Workflow     |
+| ✅ Phase 4   | Done    | MemorySaver + Thread   |
+| ✅ Phase 4.1 | Done    | Conversation Context   |
+| ✅ Phase 5   | Done    | Embeddings             |
+| ⬜ Phase 6   | Next    | Chroma Vector Database |
+| ⬜ Phase 7   | Pending | RAG                    |
+| ⬜ Phase 8   | Pending | Manager Agent          |
+| ⬜ Phase 9   | Pending | Fraud Analyst Agent    |
+| ⬜ Phase 10  | Pending | Production Hardening   |
+
+---
+
+# 📦 Files Created So Far
+
+| Folder        | Files                                             |
+| ------------- | ------------------------------------------------- |
+| Root          | `app.py`, `config.py`, `.env`, `requirements.txt` |
+| `database/`   | `snowflake.py`                                    |
+| `services/`   | `llm_service.py`                                  |
+| `tools/`      | `sql_tool.py`                                     |
+| `graph/`      | `state.py`, `nodes.py`, `workflow.py`             |
+| `prompts/`    | `sql_prompt.txt`                                  |
+| `embeddings/` | `embedding_service.py`                            |
+
+### Total project files (excluding `__init__.py`, `.env`, `requirements.txt`)
+
+**10 core Python files**
+
+---
+
+# 🗺️ Remaining Project Structure
+
+## Phase 6 — Chroma
+
+```text
+chroma/
+    __init__.py
+    vector_store.py
+```
+
+Purpose:
+
+* Create a local Chroma database.
+* Store document embeddings.
+
+---
+
+## Phase 7 — RAG
+
+```text
+rag/
+    __init__.py
+    retriever.py
+```
+
+Purpose:
+
+* Retrieve relevant document chunks.
+* Pass retrieved context to Gemini.
+
+---
+
+## Phase 8 — Manager Agent
+
+```text
+agents/
+    __init__.py
+    manager_agent.py
+```
+
+Purpose:
+
+* Understand user intent.
+* Route requests to SQL, RAG, or other tools.
+* Coordinate the workflow.
+
+---
+
+## Phase 9 — Fraud Analyst Agent
+
+```text
+agents/
+    fraud_agent.py
+```
+
+Purpose:
+
+* Specialized fraud analysis.
+* Use SQL tool for data retrieval.
+* Explain fraud-related findings.
+
+---
+
+## Phase 10 — Production Hardening
+
+Likely additions:
+
+```text
+utils/
+    logger.py
+    sql_validator.py
+    retry.py
+```
+
+Purpose:
+
+* Logging
+* SQL validation
+* Retry logic
+* Better exception handling
+* Audit trail
+
+---
+
+# 🎯 Final Architecture Goal
+
+```text
+User
+   │
+   ▼
+Manager Agent
+   │
+   ├───────────────┐
+   │               │
+   ▼               ▼
+SQL Tool        RAG Tool
+   │               │
+Snowflake      Chroma DB
+   │               │
+   └──────┬────────┘
+          ▼
+   Fraud Analyst Agent
+          ▼
+ Conversation Memory
+          ▼
+   Final Response
+```
+
+---
+</details>
 New phases and features will be added as the learning journey progresses.
 
 Stay tuned!
