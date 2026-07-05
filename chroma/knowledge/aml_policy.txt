@@ -1,0 +1,9 @@
+Anti Money Laundering (AML)
+
+Banks should monitor:
+
+- Large cash deposits
+- Frequent international transfers
+- Suspicious transaction patterns
+
+AML alerts should be reviewed by compliance officers.

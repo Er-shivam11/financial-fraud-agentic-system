@@ -1,0 +1,11 @@
+Fraud Detection Policy
+
+A transaction is considered suspicious when:
+
+- Transaction amount exceeds expected customer behaviour.
+- Multiple failed transactions occur in a short period.
+- Transactions originate from high-risk merchants.
+- Transactions originate from unusual locations.
+- Multiple accounts share suspicious activity.
+
+The fraud team should review suspicious transactions before taking action.

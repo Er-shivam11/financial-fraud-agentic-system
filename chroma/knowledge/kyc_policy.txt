@@ -1,0 +1,11 @@
+Know Your Customer (KYC)
+
+Every customer must complete identity verification.
+
+Required documents include:
+
+- Passport
+- Aadhaar Card
+- Driving License
+
+KYC status must remain valid before opening an account.
