@@ -1,8 +1,10 @@
+# services/llm_service.py
+
 import os
 from dotenv import load_dotenv
 from langchain_google_genai import ChatGoogleGenerativeAI
 
-# Load .env
+# Load environment variables
 load_dotenv()
 
 llm = ChatGoogleGenerativeAI(
@@ -12,7 +14,49 @@ llm = ChatGoogleGenerativeAI(
     max_output_tokens=512,
 )
 
+
+def clean_sql(sql: str) -> str:
+    """
+    Remove markdown formatting if the LLM accidentally returns it.
+    """
+
+    sql = sql.strip()
+
+    if sql.startswith("```sql"):
+        sql = sql.replace("```sql", "")
+
+    sql = sql.replace("```", "")
+
+    return sql.strip()
+
+
+def is_valid_sql(sql: str) -> bool:
+    """
+    Basic SQL validation before executing against Snowflake.
+    """
+
+    sql = sql.strip().upper()
+
+    valid_starts = (
+        "SELECT",
+        "WITH",
+        "INSERT",
+        "UPDATE",
+        "DELETE",
+        "CREATE",
+    )
+
+    return (
+        sql.startswith(valid_starts)
+        and sql.endswith(";")
+    )
+
+
 def generate_sql(question: str, history=None):
+    """
+    Generate Snowflake SQL using Gemini.
+    Automatically retries once if SQL is invalid.
+    """
 
     history_context = ""
 
@@ -23,19 +67,19 @@ def generate_sql(question: str, history=None):
 Previous Interaction
 
 Question:
-{last['question']}
+{last["question"]}
 
 SQL:
-{last['sql']}
+{last["sql"]}
 
 Result:
-{last['result']}
+{last["result"]}
 """
 
     prompt = f"""
-You are an expert Snowflake SQL developer.
+You are an expert Snowflake SQL Developer.
 
-Database:
+Database Schema
 
 DIM_CUSTOMER(
 CUSTOMER_ID,
@@ -70,8 +114,6 @@ IS_FRAUD
 
 Rules
 
-Rules
-
 - Return ONLY executable Snowflake SQL.
 - Do NOT explain anything.
 - Do NOT use markdown.
@@ -80,6 +122,7 @@ Rules
 - Do NOT add comments.
 - Output must start with SELECT, WITH, INSERT, UPDATE, DELETE or CREATE.
 - Return exactly one SQL statement.
+- End the SQL with a semicolon.
 
 {history_context}
 
@@ -88,21 +131,34 @@ Current Question
 {question}
 """
 
-    return llm.invoke(prompt).content.strip()
+    # ---------- First Attempt ----------
 
-def explain(question: str, rows) -> str:
+    sql = llm.invoke(prompt).content
+    sql = clean_sql(sql)
 
-    prompt = f"""
-You are a banking data analyst.
+    if is_valid_sql(sql):
+        return sql
 
-User Question:
+    # ---------- Retry Once ----------
+
+    retry_prompt = f"""
+Your previous SQL was incomplete or invalid.
+
+Generate ONE complete executable Snowflake SQL statement.
+
+Rules
+
+- Return ONLY SQL.
+- No explanation.
+- No markdown.
+- End with semicolon.
+
+Question:
+
 {question}
-
-SQL Result:
-{rows}
-
-Explain the result in simple English.
-Keep the answer under 25 words.
 """
 
-    return llm.invoke(prompt).content.strip()
+    sql = llm.invoke(retry_prompt).content
+    sql = clean_sql(sql)
+
+    return sql

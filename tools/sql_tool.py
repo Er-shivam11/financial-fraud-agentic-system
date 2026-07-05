@@ -1,3 +1,4 @@
+# tools/sql_tool.py
 from langchain.tools import tool
 from database.snowflake import run_sql
 

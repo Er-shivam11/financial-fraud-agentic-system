@@ -1,3 +1,4 @@
+# app.py
 from random import sample
 
 from embeddings.embedding_service import generate_embedding
@@ -25,20 +26,6 @@ def main():
 
         if question.lower() == "exit":
             print("\nGoodbye!")
-            print("\nGenerating Sample Embedding...\n")
-
-            sample = "Fraud is an unauthorized transaction."
-
-            vector = generate_embedding(sample)
-
-            print(f"Text : {sample}")
-
-            print(f"\nEmbedding Dimension : {len(vector)}")
-
-            print("\nFirst 10 Values")
-
-            for value in vector[:10]:
-                print(value)
             break
 
         state = {
@@ -63,7 +50,7 @@ def main():
         print("\nResult\n")
         print(result["result"])
 
-        print("\nAI Answer\n")
+        print("\nExecution Status\n")
         print(result["answer"])
 
         print("\n" + "-" * 60 + "\n")

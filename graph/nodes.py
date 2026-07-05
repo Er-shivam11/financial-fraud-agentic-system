@@ -1,4 +1,6 @@
-from services.llm_service import generate_sql, explain
+# graph/nodes.py
+from graph import state
+from services.llm_service import generate_sql
 from tools.sql_tool import sql_tool
 
 
@@ -26,10 +28,14 @@ def execute_sql_node(state):
 
 def explain_node(state):
 
-    answer = explain(
-        state["question"],
-        state["result"]
-    )
+    result = state["result"]
+
+    if isinstance(result, str):
+        answer = result
+    elif not result:
+        answer = "No records found."
+    else:
+        answer = f"Query executed successfully. Returned {len(result)} record(s)."
 
     history = state.get("history", [])
 
@@ -42,7 +48,6 @@ def explain_node(state):
         }
     )
 
-    # Keep only the latest interaction
     history = history[-1:]
 
     return {
