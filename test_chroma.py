@@ -1,9 +1,18 @@
-from chroma.vector_store import load_documents, search_documents
+# test_chroma.py
+from chroma.vector_store import (
+    load_documents,
+    retrieve_context,
+)
 
 load_documents()
 
-result = search_documents(
-    "How do banks detect fraud?"
-)
+query = "How can a bank detect money laundering?"
 
-print(result)
+print("\nQuestion:\n")
+print(query)
+
+print("\nRetrieved Context:\n")
+
+context = retrieve_context(query)
+
+print(context)
