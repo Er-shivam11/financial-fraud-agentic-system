@@ -162,3 +162,29 @@ Question:
     sql = clean_sql(sql)
 
     return sql
+
+def rag_answer(question: str, context: str) -> str:
+    """
+    Generate an answer using retrieved context.
+    """
+
+    prompt = f"""
+You are a banking assistant.
+
+Answer ONLY from the provided context.
+
+If the answer is not available in the context,
+reply:
+
+"I don't have enough information."
+
+Context:
+{context}
+
+Question:
+{question}
+
+Answer:
+"""
+
+    return llm.invoke(prompt).content.strip()
