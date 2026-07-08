@@ -1,21 +1,34 @@
+# Production AI Banking Assistant (LangGraph + Gemini + Snowflake)
+
 ![AI](future/main.png)
 
+A production-inspired AI Banking Assistant built to learn modern AI Engineering concepts by implementing them incrementally using LangGraph, Google Gemini, Snowflake, ChromaDB, and Retrieval-Augmented Generation (RAG).
 
-# Production AI Banking Assistant (LangGraph + Snowflake)
+This project focuses on understanding how enterprise AI assistants are designed — from SQL agents and conversation memory to vector databases, multi-agent workflows, fraud analysis, and production-ready architecture.
 
-A production-inspired AI Banking Assistant built to learn modern AI Engineering concepts by implementing them incrementally using LangGraph, Snowflake, OpenAI, and Retrieval-Augmented Generation (RAG).
+---
 
-This project focuses on understanding how enterprise AI assistants are designed—from SQL agents and conversation memory to vector databases, multi-agent workflows, and production-ready architecture.
+## Project Status
 
-> **Project Status:** 🚧 In Progress
+✅ Phase 10 Completed
+
+Current version includes:
+
+* SQL Agent
+* RAG Agent
+* Fraud Agent
+* Manager Agent
+* Conversation Memory
+* Vector Database
+* LLM Intent Routing
 
 ---
 
 ## Project Goals
 
-The primary objective of this project is to gain hands-on experience with real-world AI Engineering concepts by building one production-style application step by step.
+The objective of this project is to gain hands-on experience with production AI Engineering concepts by building one real-world application step by step.
 
-Each phase introduces a single concept while keeping the implementation clean, modular, and beginner-friendly.
+Each phase introduces a single concept while keeping the implementation clean, modular, and easy to understand.
 
 Topics covered include:
 
@@ -29,18 +42,31 @@ Topics covered include:
 * Production Project Structure
 * Snowflake Integration
 * LLM Application Development
+* Fraud Analytics
+* Intent Classification
 
 ---
 
 ## Tech Stack
 
+### AI Frameworks
+
 * Python
-* LangGraph
 * LangChain
-* OpenAI GPT Models
-* OpenAI Embeddings
+* LangGraph
+
+### LLM
+
+* Google Gemini 2.5 Flash
+* Gemini Embeddings
+
+### Data Layer
+
 * Snowflake Snowpark
-* Chroma Vector Database
+* ChromaDB
+
+### Utilities
+
 * Pandas
 * python-dotenv
 
@@ -50,376 +76,262 @@ Topics covered include:
 
 The project uses a simplified banking data warehouse stored in Snowflake.
 
-### Customer
+### DIM_CUSTOMER
 
-* CUSTOMER_ID
-* FIRST_NAME
-* LAST_NAME
-* AGE
-* COUNTRY
+| Column      | Type   |
+| ----------- | ------ |
+| CUSTOMER_ID | TEXT   |
+| FIRST_NAME  | TEXT   |
+| LAST_NAME   | TEXT   |
+| AGE         | NUMBER |
+| COUNTRY     | TEXT   |
 
-### Account
+### DIM_ACCOUNT
 
-* ACCOUNT_ID
-* CUSTOMER_ID
-* ACCOUNT_TYPE
-* BALANCE
+| Column       | Type   |
+| ------------ | ------ |
+| ACCOUNT_ID   | TEXT   |
+| CUSTOMER_ID  | TEXT   |
+| ACCOUNT_TYPE | TEXT   |
+| BALANCE      | NUMBER |
 
-### Merchant
+### DIM_MERCHANT
 
-* MERCHANT_ID
-* MERCHANT_NAME
-* CATEGORY
-* RISK_SCORE
+| Column        | Type   |
+| ------------- | ------ |
+| MERCHANT_ID   | TEXT   |
+| MERCHANT_NAME | TEXT   |
+| CATEGORY      | TEXT   |
+| RISK_SCORE    | NUMBER |
 
-### Transactions
+### FACT_TRANSACTIONS
 
-* TRANSACTION_ID
-* CUSTOMER_ID
-* ACCOUNT_ID
-* MERCHANT_ID
-* AMOUNT
-* IS_FRAUD
+| Column         | Type   |
+| -------------- | ------ |
+| TRANSACTION_ID | TEXT   |
+| CUSTOMER_ID    | TEXT   |
+| ACCOUNT_ID     | TEXT   |
+| MERCHANT_ID    | TEXT   |
+| AMOUNT         | NUMBER |
+| IS_FRAUD       | NUMBER |
+
+---
+
+## Current Features
+
+### SQL Analytics
+
+Example queries:
+
+* Top customer
+* Top merchant
+* Customer with highest balance
+* Merchant turnover
+* Largest transactions
+
+---
+
+### Fraud Analysis
+
+Example queries:
+
+* Show high risk merchants
+* Show suspicious transactions
+* Show fraudulent transactions
+* Show money laundering transactions
+
+---
+
+### Banking Knowledge Assistant
+
+Example queries:
+
+* What is money laundering?
+* Explain AML.
+* Define KYC.
+* What is a high-risk merchant?
+
+---
+
+### Conversation Memory
+
+Example:
+
+User:
+
+```text
+top merchant
+```
+
+Assistant:
+
+```text
+Amazon
+```
+
+User:
+
+```text
+and its turnover
+```
+
+Assistant understands that:
+
+```text
+its = Amazon
+```
+
+without repeating context.
 
 ---
 
 ## System Architecture
 
-```
+```text
 User
-   │
-   ▼
+ │
+ ▼
 Manager Agent
-   │
-   ├── SQL Tool (Snowflake)
-   ├── RAG Tool (Chroma)
-   └── Calculator Tool (Python)
-   │
-   ▼
-Fraud Analyst Agent
-   │
-   ▼
+ │
+ ├──────────────┬──────────────┐
+ │              │              │
+ ▼              ▼              ▼
+SQL Agent     RAG Agent     Fraud Agent
+ │              │              │
+ ▼              ▼              ▼
+Snowflake     ChromaDB      Snowflake
+ │              │              │
+ └───────┬──────┴──────┬───────┘
+         ▼
 Conversation Memory
-(LangGraph MemorySaver)
-   │
-   ▼
-Final Response
+         ▼
+    Final Response
 ```
 
 ---
 
-## Core Components
+## Project Structure
 
-### SQL Tool
-
-* Executes SQL queries on Snowflake
-* Retrieves structured banking data
-* Returns formatted results to the agent
-
-### RAG Tool
-
-* Searches embedded banking documents
-* Retrieves relevant context using Chroma
-* Supports policy and documentation queries
-
-### Calculator Tool
-
-* Performs arithmetic and statistical calculations
-* Avoids unnecessary LLM computations
-
-### Manager Agent
-
-* Understands user intent
-* Chooses the appropriate tool or agent
-* Combines results into a single response
-
-### Fraud Analyst Agent
-
-* Analyzes customers, merchants, and transactions
-* Explains fraud indicators in natural language
-* Relies on retrieved data rather than executing SQL directly
-
----
-
-## Conversation Memory
-
-The assistant uses **LangGraph MemorySaver** to maintain conversation context.
-
-Example:
-
+```text
+banking-ai-assistant/
+│
+├── app.py
+├── config.py
+├── requirements.txt
+├── .env
+│
+├── database/
+│   └── snowflake.py
+│
+├── services/
+│   └── llm_service.py
+│
+├── agents/
+│   ├── manager_agent.py
+│   ├── sql_agent.py
+│   ├── rag_agent.py
+│   └── fraud_agent.py
+│
+├── prompts/
+│   ├── sql_prompt.txt
+│   └── fraud_prompt.txt
+│
+├── embeddings/
+│   └── embedding_service.py
+│
+├── chroma/
+│   └── vector_store.py
+│
+├── graph/
+│   ├── state.py
+│   ├── nodes.py
+│   └── workflow.py
+│
+└── future/
 ```
-User:
-Show customer C001.
-
-Assistant:
-Displays customer details.
-
-User:
-What is his balance?
-
-Assistant:
-Understands that "his" refers to customer C001.
-```
-
----
-
-## Retrieval-Augmented Generation (RAG)
-
-Structured banking data is queried directly from Snowflake.
-
-Unstructured knowledge is retrieved using Chroma vector search.
-
-Planned knowledge sources include:
-
-* Fraud Policy
-* KYC Policy
-* AML Guidelines
-* Banking SOPs
 
 ---
 
 ## Learning Roadmap
 
-* ✅ Phase 1 – Snowflake Connection & LLM
-* ✅ Phase 2 – SQL Tool
-* ✅ Phase 3 – LangGraph Workflow
-* ✅ Phase 4 – Conversation Memory
-* ⏳ Phase 5 – OpenAI Embeddings
-* ⏳ Phase 6 – Chroma Vector Database
-* ⏳ Phase 7 – Retrieval-Augmented Generation (RAG)
-* ⏳ Phase 8 – Manager Agent
-* ⏳ Phase 9 – Fraud Analyst Agent
-* ⏳ Phase 10 – Complete Multi-Agent Banking Assistant
+| Phase    | Status    | Concept                        |
+| -------- | --------- | ------------------------------ |
+| Phase 1  | Completed | Snowflake + Gemini Setup       |
+| Phase 2  | Completed | SQL Generation                 |
+| Phase 3  | Completed | SQL Execution                  |
+| Phase 4  | Completed | Conversation Memory            |
+| Phase 5  | Completed | Embeddings                     |
+| Phase 6  | Completed | Chroma Vector Database         |
+| Phase 7  | Completed | Retrieval-Augmented Generation |
+| Phase 8  | Completed | Multi-Agent Architecture       |
+| Phase 9  | Completed | Fraud Analysis Agent           |
+| Phase 10 | Completed | LLM Intent Routing             |
+| Phase 11 | Next      | Persistent Memory              |
+| Phase 12 | Planned   | Hybrid Search                  |
+| Phase 13 | Planned   | Tool Calling Agents            |
+| Phase 14 | Planned   | Streamlit Dashboard            |
+| Phase 15 | Planned   | Production Deployment          |
 
 ---
 
-## Learning Approach
+## Example Queries
 
-Each phase is designed to:
+### SQL
 
-* Introduce one new AI Engineering concept
-* Keep the implementation simple and production-oriented
-* Reuse existing components where possible
-* Maintain clean architecture and separation of concerns
-* Ensure the project is fully runnable before moving to the next phase
+```text
+top customer
+top merchant
+customer with highest balance
+show all merchants
+```
+
+### Fraud
+
+```text
+show high risk merchants
+show suspicious transactions
+show money laundering transactions
+show fraudulent transactions
+```
+
+### RAG
+
+```text
+what is money laundering
+explain aml
+define kyc
+what is account compromise
+```
 
 ---
 
 ## Future Enhancements
 
-* Streaming responses
+* Persistent vector memory
+* Hybrid search (SQL + Vector Search)
+* Tool Calling
 * Human-in-the-loop workflows
 * Multi-LLM support
-* Observability with LangSmith
-* Agent evaluation framework
-* Authentication & role-based access
-* Deployment with Docker and cloud services
-* CI/CD pipeline
-* Monitoring and logging
+* LangSmith Observability
+* Authentication & RBAC
+* REST API
+* Streamlit Dashboard
+* Docker Deployment
+* CI/CD Pipeline
+* Monitoring & Logging
+
+---
+
+## Learning Philosophy
+
+This project follows a simple principle:
+
+> Learn one production concept at a time and implement it immediately.
+
+Every phase introduces exactly one new AI Engineering concept while preserving a runnable, production-style architecture.
 
 ---
 
 ## Repository Status
 
-🚧 This project is actively under development.
-
-<details>
-<summary>Live status</summary>
-Absolutely. Here's the updated project status based on the phases we've completed.
-
----
-
-# 📁 Current Project Structure (After Phase 5)
-
-```text
-banking-ai-assistant/
-│
-├── app.py                          ✅
-├── config.py                       ✅
-├── requirements.txt                ✅
-├── .env                            ✅
-│
-├── database/
-│   ├── __init__.py                 ✅
-│   └── snowflake.py                ✅
-│
-├── services/
-│   ├── __init__.py                 ✅
-│   └── llm_service.py              ✅
-│
-├── tools/
-│   ├── __init__.py                 ✅
-│   └── sql_tool.py                 ✅
-│
-├── graph/
-│   ├── __init__.py                 ✅
-│   ├── state.py                    ✅
-│   ├── nodes.py                    ✅
-│   └── workflow.py                 ✅
-│
-├── prompts/
-│   └── sql_prompt.txt              ✅
-│
-├── embeddings/
-│   ├── __init__.py                 ✅
-│   └── embedding_service.py        ✅
-│
-└── chroma/                         ⏳ Phase 6
-    ├── __init__.py
-    └── vector_store.py
-```
-
----
-
-# ✅ Phase Progress
-
-| Phase       | Status  | Main Concept           |
-| ----------- | ------- | ---------------------- |
-| ✅ Phase 1   | Done    | Gemini + Snowflake     |
-| ✅ Phase 2   | Done    | LangChain SQL Tool     |
-| ✅ Phase 3   | Done    | LangGraph Workflow     |
-| ✅ Phase 4   | Done    | MemorySaver + Thread   |
-| ✅ Phase 4.1 | Done    | Conversation Context   |
-| ✅ Phase 5   | Done    | Embeddings             |
-| ⬜ Phase 6   | Next    | Chroma Vector Database |
-| ⬜ Phase 7   | Pending | RAG                    |
-| ⬜ Phase 8   | Pending | Manager Agent          |
-| ⬜ Phase 9   | Pending | Fraud Analyst Agent    |
-| ⬜ Phase 10  | Pending | Production Hardening   |
-
----
-
-# 📦 Files Created So Far
-
-| Folder        | Files                                             |
-| ------------- | ------------------------------------------------- |
-| Root          | `app.py`, `config.py`, `.env`, `requirements.txt` |
-| `database/`   | `snowflake.py`                                    |
-| `services/`   | `llm_service.py`                                  |
-| `tools/`      | `sql_tool.py`                                     |
-| `graph/`      | `state.py`, `nodes.py`, `workflow.py`             |
-| `prompts/`    | `sql_prompt.txt`                                  |
-| `embeddings/` | `embedding_service.py`                            |
-
-### Total project files (excluding `__init__.py`, `.env`, `requirements.txt`)
-
-**10 core Python files**
-
----
-
-# 🗺️ Remaining Project Structure
-
-## Phase 6 — Chroma
-
-```text
-chroma/
-    __init__.py
-    vector_store.py
-```
-
-Purpose:
-
-* Create a local Chroma database.
-* Store document embeddings.
-
----
-
-## Phase 7 — RAG
-
-```text
-rag/
-    __init__.py
-    retriever.py
-```
-
-Purpose:
-
-* Retrieve relevant document chunks.
-* Pass retrieved context to Gemini.
-
----
-
-## Phase 8 — Manager Agent
-
-```text
-agents/
-    __init__.py
-    manager_agent.py
-```
-
-Purpose:
-
-* Understand user intent.
-* Route requests to SQL, RAG, or other tools.
-* Coordinate the workflow.
-
----
-
-## Phase 9 — Fraud Analyst Agent
-
-```text
-agents/
-    fraud_agent.py
-```
-
-Purpose:
-
-* Specialized fraud analysis.
-* Use SQL tool for data retrieval.
-* Explain fraud-related findings.
-
----
-
-## Phase 10 — Production Hardening
-
-Likely additions:
-
-```text
-utils/
-    logger.py
-    sql_validator.py
-    retry.py
-```
-
-Purpose:
-
-* Logging
-* SQL validation
-* Retry logic
-* Better exception handling
-* Audit trail
-
----
-
-# 🎯 Final Architecture Goal
-
-```text
-User
-   │
-   ▼
-Manager Agent
-   │
-   ├───────────────┐
-   │               │
-   ▼               ▼
-SQL Tool        RAG Tool
-   │               │
-Snowflake      Chroma DB
-   │               │
-   └──────┬────────┘
-          ▼
-   Fraud Analyst Agent
-          ▼
- Conversation Memory
-          ▼
-   Final Response
-```
-
----
-</details>
-New phases and features will be added as the learning journey progresses.
-
-Stay tuned!
-
-
-
+This project is actively under development and continuously evolving as new AI Engineering concepts are explored.
