@@ -15,6 +15,7 @@ def run_sql(query: str):
 
         # Convert Snowpark Row -> dict
         return [row.as_dict() for row in rows]
-
+    except Exception as e:
+        return f"SQL Execution Error: {e}"
     finally:
         session.close()

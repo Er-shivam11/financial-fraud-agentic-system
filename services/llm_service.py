@@ -61,19 +61,27 @@ def generate_sql(question: str, history=None):
     history_context = ""
 
     if history:
-        last = history[-1]
 
-        history_context = f"""
+        last_sql = None
+    
+        for item in reversed(history):
+            if "sql" in item:
+                last_sql = item
+                break
+            
+        if last_sql:
+        
+            history_context = f"""
 Previous Interaction
 
 Question:
-{last["question"]}
+{last_sql['question']}
 
 SQL:
-{last["sql"]}
+{last_sql['sql']}
 
 Result:
-{last["result"]}
+{last_sql['result']}
 """
 
     prompt = f"""

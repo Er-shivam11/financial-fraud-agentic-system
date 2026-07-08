@@ -1,6 +1,7 @@
 from agents.manager_agent import route_question
 from agents.sql_agent import sql_agent
 from agents.rag_agent import rag_agent
+from agents.fraud_agent import fraud_agent
 
 
 def main():
@@ -33,6 +34,9 @@ def main():
         print("\nManager Decision\n")
         print(route.upper())
 
+        # ==========================
+        # SQL AGENT
+        # ==========================
         if route == "sql":
 
             result = sql_agent(
@@ -46,16 +50,25 @@ def main():
             print("\nResult\n")
             print(result["result"])
 
-            history.append(
-                {
-                    "question": question,
-                    "sql": result["sql"],
-                    "result": result["result"]
-                }
+        # ==========================
+        # FRAUD AGENT
+        # ==========================
+        elif route == "fraud":
+
+            result = fraud_agent(
+                question,
+                history=history
             )
 
-            history = history[-5:]
+            print("\nGenerated Fraud SQL\n")
+            print(result["sql"])
 
+            print("\nFraud Analysis Result\n")
+            print(result["result"])
+
+        # ==========================
+        # RAG AGENT
+        # ==========================
         else:
 
             result = rag_agent(question)
@@ -65,6 +78,20 @@ def main():
 
             print("\nAI Answer\n")
             print(result["answer"])
+
+        # ==========================
+        # SHARED MEMORY
+        # ==========================
+        history.append(
+            {
+                "route": route,
+                "question": question,
+                "response": result
+            }
+        )
+
+        # Keep only last 5 interactions
+        history = history[-5:]
 
         print("\n" + "-" * 60 + "\n")
 

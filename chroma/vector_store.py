@@ -17,27 +17,69 @@ def load_documents():
     """
 
     documents = [
-        {
-            "id": "doc1",
-            "text":"Money laundering is the process of disguising illegally obtained money to make it appear legitimate.High risk merchants are monitored for unusual transaction activity."
-        },
-        {
-            "id": "doc2",
-            "text": "KYC verification is mandatory before opening a bank account."
-        },
-        {
-            "id": "doc3",
-            "text": "Transactions above 10000 dollars require AML review."
-        },
-        {
-            "id": "doc4",
-            "text": "Multiple failed login attempts may indicate account compromise."
-        },
-        {
-            "id": "doc5",
-            "text": "Rapid transfers between multiple accounts can indicate money laundering."
-        }
-    ]
+    {
+        "id": "doc1",
+        "text": (
+            "Money laundering is the process of disguising illegally obtained "
+            "money to make it appear legitimate."
+        )
+    },
+    {
+        "id": "doc2",
+        "text": (
+            "Anti Money Laundering (AML) refers to regulations and monitoring "
+            "systems used by banks to detect and prevent money laundering."
+        )
+    },
+    {
+        "id": "doc3",
+        "text": (
+            "KYC (Know Your Customer) verification is mandatory before "
+            "opening a bank account."
+        )
+    },
+    {
+        "id": "doc4",
+        "text": (
+            "High risk merchants are monitored for unusual "
+            "transaction activity."
+        )
+    },
+    {
+        "id": "doc5",
+        "text": (
+            "Transactions above 10000 dollars require AML review."
+        )
+    },
+    {
+        "id": "doc6",
+        "text": (
+            "Multiple failed login attempts may indicate "
+            "account compromise."
+        )
+    },
+    {
+        "id": "doc7",
+        "text": (
+            "Rapid transfers between multiple accounts can indicate "
+            "money laundering."
+        )
+    },
+    {
+        "id": "doc8",
+        "text": (
+            "Structuring is the practice of splitting large transactions "
+            "into smaller ones to avoid regulatory reporting thresholds."
+        )
+    },
+    {
+        "id": "doc9",
+        "text": (
+            "Banks monitor unusual account activity to identify "
+            "potential fraud and financial crime."
+        )
+    }
+]
 
     existing = set(collection.get()["ids"])
 
