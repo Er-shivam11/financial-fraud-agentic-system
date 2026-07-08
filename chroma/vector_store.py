@@ -19,7 +19,7 @@ def load_documents():
     documents = [
         {
             "id": "doc1",
-            "text": "High risk merchants are monitored for unusual transaction activity."
+            "text":"Money laundering is the process of disguising illegally obtained money to make it appear legitimate.High risk merchants are monitored for unusual transaction activity."
         },
         {
             "id": "doc2",
